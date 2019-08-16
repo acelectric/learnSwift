@@ -1378,7 +1378,9 @@ aHeart = <span class="hljs-literal">nil</span>
 <hr>
 <h3 id="%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AF%80-%E8%AA%8D%E8%AD%98%E5%9F%BA%E7%A4%8Eui%E5%85%83%E4%BB%B6%E8%88%87%E8%87%AA%E5%8B%95%E6%8E%92%E7%89%88">第十一節 認識基礎UI元件與自動排版</h3>
 <ul>
-<li>UISwitch<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ViewController</span>: <span class="hljs-title">UIViewController</span> </span>{
+<li>
+<p>UISwitch</p>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ViewController</span>: <span class="hljs-title">UIViewController</span> </span>{
     <span class="hljs-meta">@IBOutlet</span> <span class="hljs-keyword">weak</span> <span class="hljs-keyword">var</span> mySwitch: <span class="hljs-type">UISwitch</span>!
     
     <span class="hljs-meta">@IBAction</span> <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">makeAChange</span><span class="hljs-params">(<span class="hljs-number">_</span> sender: UISwitch)</span></span> {
@@ -1416,7 +1418,9 @@ aHeart = <span class="hljs-literal">nil</span>
 }
 </div></code></pre>
 </li>
-<li>UISegmentedControl<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ViewController</span>: <span class="hljs-title">UIViewController</span> </span>{
+<li>
+<p>UISegmentedControl</p>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ViewController</span>: <span class="hljs-title">UIViewController</span> </span>{
     <span class="hljs-meta">@IBAction</span> <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">colorToggleChanged</span><span class="hljs-params">(<span class="hljs-number">_</span> sender: UISegmentedControl)</span></span> {
         <span class="hljs-keyword">if</span> sender.selectedSegmentIndex == <span class="hljs-number">0</span>{
             view.backgroundColor = .white
@@ -1450,7 +1454,9 @@ aHeart = <span class="hljs-literal">nil</span>
 
 </div></code></pre>
 </li>
-<li>UISlider<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ViewController</span>: <span class="hljs-title">UIViewController</span> </span>{
+<li>
+<p>UISlider</p>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ViewController</span>: <span class="hljs-title">UIViewController</span> </span>{
 
     <span class="hljs-meta">@IBOutlet</span> <span class="hljs-keyword">weak</span> <span class="hljs-keyword">var</span> myLabel: <span class="hljs-type">UILabel</span>!
     
@@ -1465,7 +1471,8 @@ aHeart = <span class="hljs-literal">nil</span>
 }
 </div></code></pre>
 </li>
-<li>auto layout 自動排版
+<li>
+<p>auto layout 自動排版</p>
 <ul>
 <li>因iPhone各版本大小不同如果用iPhone開發，用iPad開啟，就會發生跑版</li>
 <li>auto layout要設定以下屬性x,y,width,height</li>
@@ -1478,7 +1485,8 @@ aHeart = <span class="hljs-literal">nil</span>
 </li>
 </ul>
 </li>
-<li>APP:color finder
+<li>
+<p>APP:color finder</p>
 <ul>
 <li>ViewController.swift</li>
 </ul>
@@ -1529,8 +1537,856 @@ aHeart = <span class="hljs-literal">nil</span>
 </li>
 </ul>
 </li>
-<li>作品截圖
-<img src="2019-07-18-05.png" alt=""></li>
+<li>
+<p>作品截圖</p>
+<p><img src="2019-07-18-05.png" alt=""></p>
+</li>
+</ul>
+<hr>
+<h1 id="20190802">2019.08.02</h1>
+<h3 id="%E7%AC%AC%E5%8D%81%E4%BA%8C%E7%AF%80-%E6%9B%B4%E5%A4%9Aui%E5%85%83%E4%BB%B6%E4%BB%8B%E7%B4%B9">第十二節 更多UI元件介紹</h3>
+<ul>
+<li>UIAlertController
+<ul>
+<li>title</li>
+<li>message</li>
+<li>UIAlertAction</li>
+<li>code<pre class="hljs"><code><div><span class="hljs-meta">@IBAction</span> <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">showAlert</span><span class="hljs-params">(<span class="hljs-number">_</span> sender: UIButton)</span></span> {
+    <span class="hljs-keyword">let</span> myAlert = <span class="hljs-type">UIAlertController</span>(title: <span class="hljs-string">"Hello"</span>, message: <span class="hljs-string">"How are you"</span>, preferredStyle: .alert)
+    
+    <span class="hljs-keyword">let</span> okAction = <span class="hljs-type">UIAlertAction</span>(title: <span class="hljs-string">"OK"</span>, style: .<span class="hljs-keyword">default</span>) {
+        (action:<span class="hljs-type">UIAlertAction</span>) <span class="hljs-keyword">in</span>
+        <span class="hljs-comment">// 關閉畫面</span>
+        <span class="hljs-keyword">self</span>.dismiss(animated: <span class="hljs-literal">true</span>, completion: <span class="hljs-literal">nil</span>)
+    }
+    <span class="hljs-comment">// 如果只要self.dismiss()可以簡寫如下</span>
+    <span class="hljs-comment">// let okAction = UIAlertAction(title: "OK", style: .default)</span>
+    
+    <span class="hljs-keyword">let</span> helloAction = <span class="hljs-type">UIAlertAction</span>(title: <span class="hljs-string">"Say Hello"</span>, style: .destructive) {
+        (action:<span class="hljs-type">UIAlertAction</span>) <span class="hljs-keyword">in</span>
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">"Hello"</span>)
+        <span class="hljs-keyword">self</span>.dismiss(animated: <span class="hljs-literal">true</span>, completion: <span class="hljs-literal">nil</span>)
+    }
+    <span class="hljs-keyword">let</span> cancelAction = <span class="hljs-type">UIAlertAction</span>(title: <span class="hljs-string">"cancel"</span>, style: .cancel) {
+        (action:<span class="hljs-type">UIAlertAction</span>) <span class="hljs-keyword">in</span>
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">"cancel"</span>)
+        <span class="hljs-keyword">self</span>.dismiss(animated: <span class="hljs-literal">true</span>, completion: <span class="hljs-literal">nil</span>)
+    }
+    
+    <span class="hljs-comment">// 將按鈕加入UIAlertController</span>
+    myAlert.addAction(okAction)
+    myAlert.addAction(helloAction)
+    myAlert.addAction(cancelAction)
+
+    <span class="hljs-comment">// 彈出UIAlertController</span>
+    present(myAlert, animated: <span class="hljs-literal">true</span>, completion: <span class="hljs-literal">nil</span>)
+}
+</div></code></pre>
+</li>
+</ul>
+</li>
+<li>UIImage
+<ul>
+<li>UIImage 不是圖片，可以想成是相框</li>
+<li>UIImage 才是圖片</li>
+<li>view &gt; content mode
+<ul>
+<li>scale to fill : 不等比例放大填滿整個畫面</li>
+<li>aspect fit : 等比例放大，有一邊再放大就超過畫面即停止放大</li>
+<li>aspect fill : 等比例放大，有兩邊再放大就超過畫面即停止放大</li>
+</ul>
+</li>
+<li>用程式碼換圖<pre class="hljs"><code><div>myPet.image = <span class="hljs-type">UIImage</span>(named: <span class="hljs-string">"MyDog"</span>)
+</div></code></pre>
+</li>
+</ul>
+</li>
+<li>UIButton
+<ul>
+<li>更換自己的圖
+<ol>
+<li>state config &gt; default</li>
+<li>image &gt; 選擇一般狀態的按鈕圖</li>
+<li>state config &gt; highlightd</li>
+<li>image &gt; 選擇按下狀態的按鈕圖</li>
+</ol>
+</li>
+<li>用程式碼產生按鈕<pre class="hljs"><code><div><span class="hljs-comment">// 做一個system style 的 UIButton</span>
+<span class="hljs-keyword">let</span> newButton = <span class="hljs-type">UIButton</span>(type: .system)
+<span class="hljs-comment">// 設定按鈕的 x,y,width,height</span>
+newButton.frame = <span class="hljs-type">CGRect</span>(x: <span class="hljs-number">50</span>, y: <span class="hljs-number">50</span>, width: <span class="hljs-number">100</span>, height: <span class="hljs-number">50</span>)
+<span class="hljs-comment">// 設定按鈕各個狀態的文字</span>
+newButton.setTitle(<span class="hljs-string">"Press"</span>, <span class="hljs-keyword">for</span>: .normal)
+newButton.setTitle(<span class="hljs-string">"Pressing"</span>, <span class="hljs-keyword">for</span>: .highlighted)
+<span class="hljs-comment">// 將按鈕加到view</span>
+view.addSubview(newButton)
+<span class="hljs-comment">// 新增按鈕的事件</span>
+newButton.addTarget(<span class="hljs-keyword">self</span>, action: #selector(<span class="hljs-type">ViewController</span>.hitMe(<span class="hljs-number">_</span>:)), <span class="hljs-keyword">for</span>: .touchUpInside)
+
+<span class="hljs-comment">// 做一個image button</span>
+<span class="hljs-keyword">let</span> anotherButton = <span class="hljs-type">UIButton</span>(type: .custom)
+anotherButton.frame = <span class="hljs-type">CGRect</span>(x: <span class="hljs-number">200</span>, y: <span class="hljs-number">200</span>, width: <span class="hljs-number">144</span>, height: <span class="hljs-number">54</span>)
+<span class="hljs-comment">// 設定按鈕各個狀態的圖片</span>
+anotherButton.setImage(<span class="hljs-type">UIImage</span>(named: <span class="hljs-string">"PlayButton"</span>), <span class="hljs-keyword">for</span>: .normal)
+anotherButton.setImage(<span class="hljs-type">UIImage</span>(named: <span class="hljs-string">"PlayButtonPressed"</span>), <span class="hljs-keyword">for</span>: .highlighted)
+view.addSubview(anotherButton)
+anotherButton.addTarget(<span class="hljs-keyword">self</span>, action: #selector(<span class="hljs-type">ViewController</span>.hitMe(<span class="hljs-number">_</span>:)), <span class="hljs-keyword">for</span>: .touchUpInside)
+</div></code></pre>
+</li>
+<li>用 closure 生 button<pre class="hljs"><code><div><span class="hljs-comment">// 好處：縮短 viewDidLoad() 的程式</span>
+
+<span class="hljs-keyword">let</span> codeButton:<span class="hljs-type">UIButton</span> = {
+    <span class="hljs-comment">// 做一個system style 的 UIButton</span>
+    <span class="hljs-keyword">let</span> newButton = <span class="hljs-type">UIButton</span>(type: .system)
+    <span class="hljs-comment">// 設定按鈕的 x,y,width,height</span>
+    newButton.frame = <span class="hljs-type">CGRect</span>(x: <span class="hljs-number">300</span>, y: <span class="hljs-number">50</span>, width: <span class="hljs-number">100</span>, height: <span class="hljs-number">50</span>)
+    <span class="hljs-comment">// 設定按鈕各個狀態的文字</span>
+    newButton.setTitle(<span class="hljs-string">"A"</span>, <span class="hljs-keyword">for</span>: .normal)
+    newButton.setTitle(<span class="hljs-string">"B"</span>, <span class="hljs-keyword">for</span>: .highlighted)
+    <span class="hljs-comment">// 新增按鈕的事件</span>
+    newButton.addTarget(<span class="hljs-keyword">self</span>, action: #selector(<span class="hljs-type">ViewController</span>.hitMe(<span class="hljs-number">_</span>:)), <span class="hljs-keyword">for</span>: .touchUpInside)
+    <span class="hljs-keyword">return</span> newButton
+}()
+<span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">viewDidLoad</span><span class="hljs-params">()</span></span> {
+    <span class="hljs-keyword">super</span>.viewDidLoad()
+    view.addSubview(codeButton)
+}
+</div></code></pre>
+</li>
+</ul>
+</li>
+<li>APP : 小小算命師
+<ul>
+<li>auto layout
+<ul>
+<li>OldMan:<code>UIImageView</code>
+<ul>
+<li>x : Horizontally in Container</li>
+<li>y : Vertically in Container</li>
+<li>height : equal to superview</li>
+<li>width : Aspect Ratio</li>
+</ul>
+</li>
+<li>helpView:<code>UIView</code>
+<ul>
+<li>x : align leading to safe area</li>
+<li>y : align bottom to superview</li>
+<li>height : proportional superview 240:1024</li>
+<li>width : 240</li>
+</ul>
+</li>
+<li>yourFortune:<code>UIImageView</code>
+<ul>
+<li>x : Horizontally in Container</li>
+<li>y : bottom space to helpView</li>
+<li>height : proportional superview 228:1024</li>
+<li>width : Aspect Ratio</li>
+</ul>
+</li>
+<li>viewForButton:<code>UIView</code>
+<ul>
+<li>x : align trailing to safe area</li>
+<li>y : align bottom to superview</li>
+<li>height : proportional superview 85:1024</li>
+<li>width : 240</li>
+</ul>
+</li>
+<li>Button:<code>UIButton</code>
+<ul>
+<li>x : Horizontally in Container</li>
+<li>y : bottom space to viewForButton -8</li>
+<li>height : proportional superview 85:1024</li>
+<li>width : Aspect Ratio</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>code<pre class="hljs"><code><div><span class="hljs-keyword">import</span> UIKit
+<span class="hljs-keyword">import</span> GameKit
+<span class="hljs-keyword">import</span> AudioToolbox
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ViewController</span>: <span class="hljs-title">UIViewController</span> </span>{
+
+    <span class="hljs-keyword">override</span> <span class="hljs-keyword">var</span> prefersStatusBarHidden: <span class="hljs-type">Bool</span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+    }
+    <span class="hljs-meta">@IBOutlet</span> <span class="hljs-keyword">weak</span> <span class="hljs-keyword">var</span> yourFortune: <span class="hljs-type">UIImageView</span>!
+    <span class="hljs-meta">@IBAction</span> <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">tellMeSomething</span><span class="hljs-params">(<span class="hljs-number">_</span> sender: UIButton)</span></span> {
+        <span class="hljs-keyword">if</span> yourFortune.isHidden == <span class="hljs-literal">true</span> {
+            showAnswer()
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-comment">// 隱藏圖片</span>
+            yourFortune.isHidden = <span class="hljs-literal">true</span>;
+        }
+    }
+    
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">motionEnded</span><span class="hljs-params">(<span class="hljs-number">_</span> motion: UIEvent.EventSubtype, with event: UIEvent?)</span></span> {
+        <span class="hljs-comment">// 如果搖晃手機執行</span>
+        <span class="hljs-keyword">if</span> event?.subtype == .motionShake {
+            showAnswer()
+        }
+    }
+    
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">showAnswer</span><span class="hljs-params">()</span></span> {
+        <span class="hljs-comment">// 做一個1到6的亂數</span>
+        <span class="hljs-keyword">let</span> answer = <span class="hljs-type">GKRandomSource</span>.sharedRandom().nextInt(upperBound: <span class="hljs-number">6</span>)+<span class="hljs-number">1</span>
+        <span class="hljs-comment">// 換圖</span>
+        yourFortune.image = <span class="hljs-type">UIImage</span>(named: <span class="hljs-string">"<span class="hljs-subst">\(answer)</span>"</span>)
+        yourFortune.isHidden = <span class="hljs-literal">false</span>
+        <span class="hljs-comment">// 播放音效</span>
+        <span class="hljs-type">AudioServicesPlaySystemSound</span>(<span class="hljs-number">1000</span>)
+    }
+    
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">viewDidLoad</span><span class="hljs-params">()</span></span> {
+        <span class="hljs-keyword">super</span>.viewDidLoad()
+        <span class="hljs-comment">// Do any additional setup after loading the view.</span>
+    }
+}
+</div></code></pre>
+</li>
+<li>成品
+<img src="2019-07-31.png" alt="">
+<img src="2019-08-01.png" alt=""></li>
+</ul>
+</li>
+</ul>
+<h3 id="%E7%AC%AC%E5%8D%81%E4%B8%89%E7%AF%80-%E5%8D%94%E5%AE%9A">第十三節 協定</h3>
+<ul>
+<li>UIPickerView
+<ol>
+<li>在<code>main.storyboard</code>連結<code>PickerView</code>的<code>datasource</code>和<code>delegate</code>到<code>ViewController</code></li>
+<li><code>ViewController.swift</code>加入以下協定<code>UIPickerViewDataSource</code>和<code>UIPickerViewDelegate</code></li>
+<li>設定有幾個component</li>
+<li>設定有每個component有幾個row</li>
+<li>設定每個欄位的title</li>
+<li>設定選擇這個component這個row要做的事情</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ViewController</span>: <span class="hljs-title">UIViewController</span>,<span class="hljs-title">UIPickerViewDataSource</span>,<span class="hljs-title">UIPickerViewDelegate</span> </span>{
+    <span class="hljs-keyword">let</span> numberArray = [<span class="hljs-string">"1"</span>,<span class="hljs-string">"2"</span>,<span class="hljs-string">"3"</span>,<span class="hljs-string">"4"</span>,<span class="hljs-string">"5"</span>,<span class="hljs-string">"7"</span>,<span class="hljs-string">"8"</span>]
+    <span class="hljs-keyword">let</span> fruitArray = [<span class="hljs-string">"apple"</span>,<span class="hljs-string">"banana"</span>,<span class="hljs-string">"mango"</span>,<span class="hljs-string">"watermalon"</span>]
+    
+    <span class="hljs-comment">// 設定有幾個component</span>
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">numberOfComponents</span><span class="hljs-params">(<span class="hljs-keyword">in</span> pickerView: UIPickerView)</span></span> -&gt; <span class="hljs-type">Int</span> {
+        <span class="hljs-comment">// how many component in picker view</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-number">2</span>
+    }
+    
+    <span class="hljs-comment">// 設定有每個component有幾個row</span>
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">pickerView</span><span class="hljs-params">(<span class="hljs-number">_</span> pickerView: UIPickerView, numberOfRowsInComponent component: Int)</span></span> -&gt; <span class="hljs-type">Int</span> {
+        <span class="hljs-keyword">if</span> component == <span class="hljs-number">0</span> {
+            <span class="hljs-keyword">return</span> numberArray.<span class="hljs-built_in">count</span>
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">return</span> fruitArray.<span class="hljs-built_in">count</span>
+        }
+    }
+    
+    <span class="hljs-comment">// 設定每個欄位的title</span>
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">pickerView</span><span class="hljs-params">(<span class="hljs-number">_</span> pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int)</span></span> -&gt; <span class="hljs-type">String</span>? {
+        <span class="hljs-keyword">if</span> component == <span class="hljs-number">0</span> {
+            <span class="hljs-keyword">return</span> numberArray[row]
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">return</span> fruitArray[row]
+        }
+    }
+    
+    <span class="hljs-comment">// 設定選擇這個component這個row要做的事情</span>
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">pickerView</span><span class="hljs-params">(<span class="hljs-number">_</span> pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)</span></span> {
+        <span class="hljs-keyword">if</span> component == <span class="hljs-number">0</span>{
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">"number: <span class="hljs-subst">\(numberArray[row])</span>"</span>)
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">"fruit: <span class="hljs-subst">\(fruitArray[row])</span>"</span>)
+        }
+    }
+    
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">viewDidLoad</span><span class="hljs-params">()</span></span> {
+        <span class="hljs-keyword">super</span>.viewDidLoad()
+        <span class="hljs-comment">// Do any additional setup after loading the view.</span>
+    }
+}
+</div></code></pre>
+</li>
+<li>協定 portocol
+<ul>
+<li>服從協定要實作協定中的方法</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">protocol</span> <span class="hljs-title">SoyMilkGetable</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">giveMeSoyMilk</span><span class="hljs-params">()</span></span>
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Brunch</span>:<span class="hljs-title">SoyMilkGetable</span></span>{
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">giveMeSoyMilk</span><span class="hljs-params">()</span></span> {
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">"Soy Milk"</span>)
+    }
+    
+    
+}
+
+<span class="hljs-keyword">let</span> aBrunch = <span class="hljs-type">Brunch</span>()
+aBrunch.giveMeSoyMilk()
+
+<span class="hljs-class"><span class="hljs-keyword">protocol</span> <span class="hljs-title">MoneyTransferProtocol</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">giveMoney</span><span class="hljs-params">()</span></span>
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RichPeople</span>:<span class="hljs-title">MoneyTransferProtocol</span></span>{
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">giveMoney</span><span class="hljs-params">()</span></span> {
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">"Give you 100 dollars"</span>)
+    }
+}
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PoorGuy</span> </span>{
+    <span class="hljs-keyword">var</span> helper:<span class="hljs-type">MoneyTransferProtocol</span>?
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">needMoney</span><span class="hljs-params">()</span></span>{
+        helper?.giveMoney()
+    }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NormalPeople</span>:<span class="hljs-title">MoneyTransferProtocol</span></span>{
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">giveMoney</span><span class="hljs-params">()</span></span> {
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">"Give you 10 dollars"</span>)
+    }
+}
+
+<span class="hljs-keyword">let</span> aPoorGuy = <span class="hljs-type">PoorGuy</span>()
+<span class="hljs-keyword">let</span> aRichPeople = <span class="hljs-type">RichPeople</span>()
+<span class="hljs-keyword">let</span> aNormalPeople = <span class="hljs-type">NormalPeople</span>()
+aPoorGuy.helper = aNormalPeople
+aPoorGuy.needMoney()
+</div></code></pre>
+<ul>
+<li>上述PickerView運作邏輯類似於下</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">protocol</span> <span class="hljs-title">PickerViewDataSource</span></span>{
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">howManyComponent</span><span class="hljs-params">()</span></span>
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">howManyRow</span><span class="hljs-params">()</span></span>
+    
+}
+
+<span class="hljs-class"><span class="hljs-keyword">protocol</span> <span class="hljs-title">PickerViewDelegate</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">titleToShow</span><span class="hljs-params">()</span></span>
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">didSelect</span><span class="hljs-params">()</span></span>
+}
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ViewController</span>:<span class="hljs-title">PickerViewDataSource</span>,<span class="hljs-title">PickerViewDelegate</span></span>{
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">howManyComponent</span><span class="hljs-params">()</span></span> {
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">"2"</span>)
+    }
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">howManyRow</span><span class="hljs-params">()</span></span> {
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">"10"</span>)
+    }
+    
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">titleToShow</span><span class="hljs-params">()</span></span> {
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">"Hello"</span>)
+    }
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">didSelect</span><span class="hljs-params">()</span></span> {
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">"Select"</span>)
+    }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PickerView</span> </span>{
+    <span class="hljs-keyword">var</span> dataSource:<span class="hljs-type">PickerViewDataSource</span>?
+    <span class="hljs-keyword">var</span> delegate:<span class="hljs-type">PickerViewDelegate</span>?
+    
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">howManyComponentIhave</span><span class="hljs-params">()</span></span> {
+        dataSource?.howManyComponent()
+    }
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">howManyRowIhave</span><span class="hljs-params">()</span></span> {
+        dataSource?.howManyRow()
+    }
+    
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">whatToShow</span><span class="hljs-params">()</span></span> {
+        delegate?.titleToShow()
+    }
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">afterSelect</span><span class="hljs-params">()</span></span> {
+        delegate?.didSelect()
+    }
+}
+<span class="hljs-keyword">let</span> aPickerView = <span class="hljs-type">PickerView</span>()
+<span class="hljs-keyword">let</span> aViewController = <span class="hljs-type">ViewController</span>()
+aPickerView.dataSource = aViewController
+aPickerView.delegate = aViewController
+
+aPickerView.howManyComponentIhave()
+aPickerView.howManyRowIhave()
+
+aPickerView.whatToShow()
+aPickerView.afterSelect()
+</div></code></pre>
+</li>
+<li>protocol oriented programming
+<ul>
+<li>優點
+<ol>
+<li>可以服從多個協定</li>
+<li>保證一定會實作</li>
+<li>某幾個子類別有相同的方法</li>
+</ol>
+</li>
+<li>protocol vs object</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-comment">// protocol oriented programming</span>
+<span class="hljs-class"><span class="hljs-keyword">protocol</span> <span class="hljs-title">ManKindType</span></span>{
+    <span class="hljs-keyword">var</span> health:<span class="hljs-type">Int</span>{ <span class="hljs-keyword">get</span> <span class="hljs-keyword">set</span> }
+}
+<span class="hljs-class"><span class="hljs-keyword">protocol</span> <span class="hljs-title">Attackable</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">attack</span><span class="hljs-params">(target:Hurtable)</span></span>
+}
+<span class="hljs-class"><span class="hljs-keyword">protocol</span> <span class="hljs-title">Hurtable</span>:<span class="hljs-title">ManKindType</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">getHurt</span><span class="hljs-params">()</span></span>
+}
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Man</span>:<span class="hljs-title">ManKindType</span>,<span class="hljs-title">Hurtable</span></span>{
+    <span class="hljs-keyword">var</span> health:<span class="hljs-type">Int</span>
+    <span class="hljs-keyword">init</span>(){
+        health = <span class="hljs-number">10</span>
+    }
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">getHurt</span><span class="hljs-params">()</span></span> {
+        health -= <span class="hljs-number">10</span>
+    }
+}
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BatMan</span>:<span class="hljs-title">ManKindType</span>,<span class="hljs-title">Hurtable</span>,<span class="hljs-title">Attackable</span></span>{
+    <span class="hljs-keyword">var</span> health: <span class="hljs-type">Int</span>
+    <span class="hljs-keyword">init</span>(){
+        health = <span class="hljs-number">1000</span>
+    }
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">getHurt</span><span class="hljs-params">()</span></span> {
+        health -= <span class="hljs-number">5</span>
+    }
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">attack</span><span class="hljs-params">(target:Hurtable)</span></span> {
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">"attack with fist"</span>)
+        target.getHurt()
+    }
+}
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SuperMan</span>:<span class="hljs-title">ManKindType</span>,<span class="hljs-title">Hurtable</span>,<span class="hljs-title">Attackable</span></span>{
+    <span class="hljs-keyword">var</span> health: <span class="hljs-type">Int</span>
+    <span class="hljs-keyword">init</span>() {
+        health = <span class="hljs-number">10000</span>
+    }
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">getHurt</span><span class="hljs-params">()</span></span> {
+        health -= <span class="hljs-number">1</span>
+    }
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">attack</span><span class="hljs-params">(target:Hurtable)</span></span> {
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">"attack with eye laser"</span>)
+        target.getHurt()
+    }
+}
+<span class="hljs-comment">// object oriented programming</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Man</span></span>{
+    <span class="hljs-keyword">var</span> health:<span class="hljs-type">Int</span>
+    <span class="hljs-keyword">init</span>(){
+        health = <span class="hljs-number">10</span>
+    }
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">getHurt</span><span class="hljs-params">()</span></span> {
+        health -= <span class="hljs-number">10</span>
+    }
+}
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BatMan</span>:<span class="hljs-title">Man</span></span>{
+    <span class="hljs-keyword">override</span> <span class="hljs-keyword">init</span>(){
+        <span class="hljs-keyword">super</span>.<span class="hljs-keyword">init</span>()
+        health = <span class="hljs-number">1000</span>
+    }
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">getHurt</span><span class="hljs-params">()</span></span> {
+        health -= <span class="hljs-number">5</span>
+    }
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">attack</span><span class="hljs-params">()</span></span> {
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">"attack with fist"</span>)
+    }
+}
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SuperMan</span>:<span class="hljs-title">Man</span></span>{
+    <span class="hljs-keyword">override</span> <span class="hljs-keyword">init</span>() {
+        <span class="hljs-keyword">super</span>.<span class="hljs-keyword">init</span>()
+        health = <span class="hljs-number">10000</span>
+    }
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">getHurt</span><span class="hljs-params">()</span></span> {
+        health -= <span class="hljs-number">1</span>
+    }
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">attack</span><span class="hljs-params">()</span></span> {
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">"attack with eye laser"</span>)
+    }
+}
+</div></code></pre>
+</li>
+<li>view life cycle
+<ul>
+<li>loadView : 用程式碼產生畫面</li>
+<li>viewDidLoad : 讀入畫面之後執行</li>
+<li>viewWillAppear : 畫面即將顯示到螢幕上</li>
+<li>viewDidAppear : 畫面已經顯示到螢幕上</li>
+<li>viewWillDisappear : 畫面即將離開螢幕</li>
+<li>viewDidDisappear : 畫面已經離開螢幕</li>
+</ul>
+</li>
+<li>開啟APP後會做的事
+<ol>
+<li>app:did finish launching</li>
+<li>view Did Load</li>
+<li>view Will Appear</li>
+<li>view Did Appear</li>
+<li>app:did become active</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h1 id="20190816">2019.08.16</h1>
+<h3 id="%E7%AC%AC%E5%8D%81%E5%9B%9B%E7%AF%80-%E5%A4%9A%E5%AA%92%E9%AB%94%EF%BC%9A%E6%92%AD%E6%94%BE%E9%9F%B3%E6%A8%82">第十四節 多媒體：播放音樂</h3>
+<ul>
+<li>enum(列舉):enumberation
+<ul>
+<li>已知型別可以省略型別</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-comment">// 宣告列舉</span>
+<span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">Direction</span></span>{
+    <span class="hljs-keyword">case</span> east
+    <span class="hljs-keyword">case</span> west
+    <span class="hljs-keyword">case</span> south
+    <span class="hljs-keyword">case</span> north
+}
+<span class="hljs-comment">// 因為myDirection有宣告型別Direction，所以後面的Direction.north可以省略為.north</span>
+<span class="hljs-keyword">let</span> myDirection:<span class="hljs-type">Direction</span> = .north
+
+<span class="hljs-comment">// 以下為沒有enum的程式寫法</span>
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">whichDirectionToGo</span><span class="hljs-params">(direction:String)</span></span> {
+    <span class="hljs-keyword">if</span> direction == <span class="hljs-string">"east"</span> {
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">"go east"</span>);
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> direction == <span class="hljs-string">"west"</span> {
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">"go west"</span>);
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> direction == <span class="hljs-string">"south"</span> {
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">"go south"</span>);
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> direction == <span class="hljs-string">"north"</span> {
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">"go north"</span>);
+    }
+}
+<span class="hljs-comment">// 這種寫法有時會不小心打錯字，造成錯誤</span>
+whichDirectionToGo(direction: <span class="hljs-string">"esat"</span>)
+
+<span class="hljs-comment">// 以下為enum寫法</span>
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">whichDirectionToGo</span><span class="hljs-params">(direction:Direction)</span></span> {
+    <span class="hljs-keyword">if</span> direction == .east {
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">"go east"</span>);
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> direction == .west {
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">"go west"</span>);
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> direction == .south {
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">"go south"</span>);
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> direction == .north {
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">"go north"</span>);
+    }
+}
+<span class="hljs-comment">// 這種寫法可以用.然後再選擇，就不會有打錯字的問題</span>
+whichDirectionToGo(direction: myDirection)
+whichDirectionToGo(direction: .south)
+
+<span class="hljs-keyword">import</span> UIKit
+<span class="hljs-comment">// 之前用到的UIAlertController()就有用到.alert即是UIAlertController.Style.alert之縮寫</span>
+<span class="hljs-type">UIAlertController</span>(title: <span class="hljs-string">"hello"</span>, message: <span class="hljs-literal">nil</span>, preferredStyle: <span class="hljs-type">UIAlertController</span>.<span class="hljs-type">Style</span>.alert)
+<span class="hljs-type">UIAlertController</span>(title: <span class="hljs-string">"hello"</span>, message: <span class="hljs-literal">nil</span>, preferredStyle: .alert)
+
+</div></code></pre>
+</li>
+<li>錯誤處理
+<ul>
+<li>有<code>throws</code>的方法，要配合<code>try</code>,<code>do</code>,<code>catch</code>使用</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">NameInputError</span>:<span class="hljs-title">Error</span></span>{
+    <span class="hljs-keyword">case</span> empty
+    <span class="hljs-keyword">case</span> isNumber
+    
+}
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">getUserFullname</span><span class="hljs-params">(firstname:String,lastname:String)</span></span> <span class="hljs-keyword">throws</span> -&gt; <span class="hljs-type">String</span>{
+    <span class="hljs-keyword">if</span> firstname == <span class="hljs-string">""</span>||lastname == <span class="hljs-string">""</span>{
+        <span class="hljs-keyword">throw</span> <span class="hljs-type">NameInputError</span>.empty
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> <span class="hljs-type">Int</span>(firstname) != <span class="hljs-literal">nil</span> || <span class="hljs-type">Int</span>(lastname) != <span class="hljs-literal">nil</span>{
+        <span class="hljs-keyword">throw</span> <span class="hljs-type">NameInputError</span>.isNumber
+    }
+    <span class="hljs-keyword">let</span> fullname = firstname + <span class="hljs-string">" "</span> + lastname
+    <span class="hljs-keyword">return</span> fullname
+}
+
+<span class="hljs-keyword">do</span>{
+    <span class="hljs-keyword">try</span> getUserFullname(firstname: <span class="hljs-string">"ian"</span>, lastname: <span class="hljs-string">""</span>)
+}<span class="hljs-keyword">catch</span> <span class="hljs-type">NameInputError</span>.empty{
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">"empty name"</span>)
+}<span class="hljs-keyword">catch</span> <span class="hljs-type">NameInputError</span>.isNumber{
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">"input some number"</span>)
+}<span class="hljs-keyword">catch</span> {
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">"something is wrong"</span>)
+}
+<span class="hljs-comment">// output: empty name</span>
+</div></code></pre>
+</li>
+<li>播放音效
+<ol>
+<li><code>import AVFoundation</code></li>
+<li>找到音檔路徑</li>
+<li><code>URL(fileURLWithPath: path)</code></li>
+<li>make an <code>audioPlayer:AVAudioPlayer?</code></li>
+<li>調整參數
+<ul>
+<li>調整音樂播放速度</li>
+<li>重複播放音樂的次數</li>
+<li>調整音量</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>用按鈕播放時，若要每次按下都重頭播放，需先停止上次的播放，將<code>currentTime</code>設為0，再播放</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> UIKit
+<span class="hljs-comment">// 引入這個函式庫方便播放音效</span>
+<span class="hljs-keyword">import</span> AVFoundation
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ViewController</span>: <span class="hljs-title">UIViewController</span> </span>{
+
+    <span class="hljs-keyword">var</span> audioPlayer:<span class="hljs-type">AVAudioPlayer</span>?
+    <span class="hljs-meta">@IBAction</span> <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">play</span><span class="hljs-params">(<span class="hljs-number">_</span> sender: UIButton)</span></span> {
+        audioPlayer?.stop()
+        audioPlayer?.currentTime = <span class="hljs-number">0.0</span>
+        audioPlayer?.play()
+    }
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">viewDidLoad</span><span class="hljs-params">()</span></span> {
+        <span class="hljs-keyword">super</span>.viewDidLoad()
+        <span class="hljs-comment">// 找到音檔路徑</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">let</span> path = <span class="hljs-type">Bundle</span>.main.path(forResource: <span class="hljs-string">"Right"</span>, ofType: <span class="hljs-string">"mp3"</span>){
+            <span class="hljs-comment">// path to url</span>
+            <span class="hljs-keyword">let</span> url = <span class="hljs-type">URL</span>(fileURLWithPath: path)
+            <span class="hljs-comment">// make an audio player</span>
+            <span class="hljs-keyword">do</span>{
+                audioPlayer = <span class="hljs-keyword">try</span> <span class="hljs-type">AVAudioPlayer</span>(contentsOf: url)
+                <span class="hljs-comment">// 調整音樂播放速度</span>
+                <span class="hljs-comment">// 1. 開啟enableRate</span>
+                <span class="hljs-comment">// 2. 調整rate</span>
+                audioPlayer?.enableRate = <span class="hljs-literal">true</span>
+                <span class="hljs-comment">// audioPlayer?.rate = 0.5</span>
+                
+                <span class="hljs-comment">// 重複播放音樂的次數</span>
+                <span class="hljs-comment">// 預設為0  =&gt; 播放1次</span>
+                <span class="hljs-comment">// 調整為1  =&gt; 播放2次</span>
+                <span class="hljs-comment">// 調整為-1 =&gt; 不斷播放</span>
+                audioPlayer?.numberOfLoops = -<span class="hljs-number">1</span>;
+                
+                <span class="hljs-comment">// 調整音量</span>
+                <span class="hljs-comment">// 預設為1</span>
+                audioPlayer?.volume = <span class="hljs-number">0.3</span>
+            }<span class="hljs-keyword">catch</span> {
+                <span class="hljs-built_in">print</span>(error.localizedDescription)
+            }
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">"no such file"</span>)
+        }
+        <span class="hljs-comment">// 上述if optional binding可以寫成下面這樣</span>
+        <span class="hljs-comment">// 差別是if 的 path可視範圍較小</span>
+        <span class="hljs-comment">// guard 的 newPath可視範圍較大</span>
+        <span class="hljs-keyword">guard</span> <span class="hljs-keyword">let</span> newPath = <span class="hljs-type">Bundle</span>.main.path(forResource: <span class="hljs-string">"Right"</span>, ofType: <span class="hljs-string">"mp3"</span>) <span class="hljs-keyword">else</span> {
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">"no such file"</span>)
+            <span class="hljs-keyword">return</span>
+        }
+        <span class="hljs-keyword">do</span>{
+            audioPlayer = <span class="hljs-keyword">try</span> <span class="hljs-type">AVAudioPlayer</span>(contentsOf: <span class="hljs-type">URL</span>(fileURLWithPath: newPath))
+        }<span class="hljs-keyword">catch</span> {
+            <span class="hljs-built_in">print</span>(error.localizedDescription)
+        }
+    }
+}
+</div></code></pre>
+</li>
+</ul>
+<hr>
+<h3 id="%E7%AC%AC%E5%8D%81%E4%BA%94%E7%AF%80-%E5%9C%B0%E5%9C%96%E8%88%87%E7%89%A9%E4%BB%B6%E5%B0%8E%E5%90%91%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88%E4%B8%8B">第十五節 地圖與物件導向程式設計(下)</h3>
+<ul>
+<li>
+<p>結構(struct)</p>
+<ul>
+<li>基本寫法</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Size</span></span>{
+    <span class="hljs-keyword">var</span> width:<span class="hljs-type">Float</span> = <span class="hljs-number">5.0</span>
+    <span class="hljs-keyword">var</span> height:<span class="hljs-type">Float</span> = <span class="hljs-number">8.0</span>
+    
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">area</span><span class="hljs-params">()</span></span>-&gt;<span class="hljs-type">Float</span>{
+        <span class="hljs-keyword">return</span> width*height;
+    }
+}
+<span class="hljs-comment">//不用init()</span>
+<span class="hljs-keyword">var</span> aSize:<span class="hljs-type">Size</span> = <span class="hljs-type">Size</span>(width: <span class="hljs-number">20.3</span>, height: <span class="hljs-number">45.6</span>)
+
+aSize.width
+aSize.height = <span class="hljs-number">12.3</span>
+
+<span class="hljs-keyword">var</span> newSize = <span class="hljs-type">Size</span>()
+newSize.area()
+
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Name</span></span>{
+    <span class="hljs-keyword">var</span> firstname:<span class="hljs-type">String</span>
+    <span class="hljs-keyword">var</span> lastname:<span class="hljs-type">String</span>
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">fullname</span><span class="hljs-params">()</span></span>-&gt;<span class="hljs-type">String</span>{
+        <span class="hljs-keyword">return</span> firstname+<span class="hljs-string">" "</span>+lastname
+    }
+}
+
+<span class="hljs-keyword">let</span> myName = <span class="hljs-type">Name</span>(firstname: <span class="hljs-string">"ian"</span>, lastname: <span class="hljs-string">"lu"</span>)
+myName.fullname()
+
+</div></code></pre>
+<ul>
+<li><code>struct</code> 與 <code>class</code>不同之處
+<ol>
+<li><code>struct</code>不能有子類別<code>class</code>可以</li>
+<li><code>struct</code>是<code>value type</code>，<code>class</code>是<code>refernce type</code></li>
+<li><code>struct</code>儲存簡單資料;<code>class</code>儲存與操作資料</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p>實機測試</p>
+<ol>
+<li>更新iPhone作業系統到最新</li>
+<li>接線</li>
+<li>xcode 上選手機</li>
+<li>等 5-10 分鐘</li>
+</ol>
+</li>
+<li>
+<p>地圖</p>
+<ul>
+<li>大頭針</li>
+<li>長按</li>
+<li>設定地圖region方法
+<ol>
+<li>設定緯度 <code>latitude:CLLocationDegrees</code></li>
+<li>設定經度 <code>longitude:CLLocationDegrees</code></li>
+<li>利用緯度和經度生成 <code>location:CLLocationCoordinate2D</code></li>
+<li>設定x方向放大倍率 <code>xScale:CLLocationDegrees</code></li>
+<li>設定y方向放大倍率 <code>yScale:CLLocationDegrees</code></li>
+<li>利用x,y放大倍率生成 <code>span:MKCoordinateSpan</code></li>
+<li>利用location,span生成 <code>region:MKCoordinateRegion</code></li>
+<li>設定地圖的region <code>map.setRegion()</code><img src="2019-08-16-01.png" alt=""></li>
+</ol>
+</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> UIKit
+<span class="hljs-keyword">import</span> MapKit
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ViewController</span>: <span class="hljs-title">UIViewController</span> </span>{
+    <span class="hljs-meta">@IBOutlet</span> <span class="hljs-keyword">weak</span> <span class="hljs-keyword">var</span> <span class="hljs-built_in">map</span>: <span class="hljs-type">MKMapView</span>!
+    
+    
+    <span class="hljs-comment">// 長按執行</span>
+    <span class="hljs-comment">// 1. storyboard 加入 LongPressGestureRecognizer</span>
+    <span class="hljs-comment">// 2. action 連結到ViewController</span>
+    <span class="hljs-meta">@IBAction</span> <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">addMeAnnotation</span><span class="hljs-params">(<span class="hljs-number">_</span> sender: UILongPressGestureRecognizer)</span></span> {
+        <span class="hljs-keyword">let</span> touchPoint = sender.location(<span class="hljs-keyword">in</span>: <span class="hljs-built_in">map</span>)
+        <span class="hljs-keyword">let</span> touchCoordinate:<span class="hljs-type">CLLocationCoordinate2D</span> = <span class="hljs-built_in">map</span>.convert(touchPoint, toCoordinateFrom: <span class="hljs-built_in">map</span>)
+        
+        <span class="hljs-comment">// 建立大頭針</span>
+        <span class="hljs-keyword">let</span> annotation = <span class="hljs-type">MKPointAnnotation</span>()
+        annotation.coordinate = touchCoordinate
+        annotation.title = <span class="hljs-string">"新的地點"</span>
+        annotation.subtitle = <span class="hljs-string">"這是哪裡？"</span>
+        <span class="hljs-built_in">map</span>.addAnnotation(annotation);
+        
+    }
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">viewDidLoad</span><span class="hljs-params">()</span></span> {
+        <span class="hljs-keyword">super</span>.viewDidLoad()
+        <span class="hljs-comment">// Do any additional setup after loading the view.</span>
+        <span class="hljs-keyword">let</span> latitude:<span class="hljs-type">CLLocationDegrees</span> = <span class="hljs-number">24.746211</span>
+        <span class="hljs-keyword">let</span> longitude:<span class="hljs-type">CLLocationDegrees</span> = <span class="hljs-number">121.748843</span>
+        <span class="hljs-keyword">let</span> location:<span class="hljs-type">CLLocationCoordinate2D</span> = <span class="hljs-type">CLLocationCoordinate2D</span>(latitude: latitude, longitude: longitude)
+        
+        <span class="hljs-keyword">let</span> xScale:<span class="hljs-type">CLLocationDegrees</span> = <span class="hljs-number">0.005</span>
+        <span class="hljs-keyword">let</span> yScale:<span class="hljs-type">CLLocationDegrees</span> = <span class="hljs-number">0.005</span>
+        <span class="hljs-keyword">let</span> span:<span class="hljs-type">MKCoordinateSpan</span> = <span class="hljs-type">MKCoordinateSpan</span>(latitudeDelta: yScale, longitudeDelta: xScale)
+        
+        <span class="hljs-keyword">let</span> region:<span class="hljs-type">MKCoordinateRegion</span> = <span class="hljs-type">MKCoordinateRegion</span>(center: location, span: span)
+        <span class="hljs-comment">// 設定地圖區域</span>
+        <span class="hljs-built_in">map</span>.setRegion(region, animated: <span class="hljs-literal">true</span>)
+        <span class="hljs-comment">// 設定顯示模式</span>
+        <span class="hljs-built_in">map</span>.mapType = .standard
+        
+        <span class="hljs-keyword">let</span> annotation = <span class="hljs-type">MKPointAnnotation</span>()
+        annotation.coordinate = location
+        annotation.title = <span class="hljs-string">"宜蘭大學"</span>
+        annotation.subtitle = <span class="hljs-string">"我就讀的學校"</span>
+        <span class="hljs-built_in">map</span>.addAnnotation(annotation);
+        
+    }
+}
+</div></code></pre>
+<ul>
+<li>顯示地圖，長按顯示大頭針
+<img src="2019-08-16-02.png" alt=""></li>
+</ul>
+</li>
+<li>
+<p>追蹤使用者位置</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> UIKit
+<span class="hljs-keyword">import</span> MapKit
+<span class="hljs-comment">// 追蹤location需引入</span>
+<span class="hljs-keyword">import</span> CoreLocation
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ViewController</span>: <span class="hljs-title">UIViewController</span>,<span class="hljs-title">CLLocationManagerDelegate</span> </span>{
+    <span class="hljs-meta">@IBOutlet</span> <span class="hljs-keyword">weak</span> <span class="hljs-keyword">var</span> <span class="hljs-built_in">map</span>: <span class="hljs-type">MKMapView</span>!
+    
+    <span class="hljs-keyword">var</span> locationManager:<span class="hljs-type">CLLocationManager</span>?
+
+
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">viewDidLoad</span><span class="hljs-params">()</span></span> {
+        <span class="hljs-keyword">super</span>.viewDidLoad()
+        <span class="hljs-comment">// Do any additional setup after loading the view.</span>
+        locationManager = <span class="hljs-type">CLLocationManager</span>()
+        <span class="hljs-comment">// 要求使用者授權</span>
+        <span class="hljs-comment">// 要先在info.plist新增</span>
+        <span class="hljs-comment">// Privacy - Location When In Use Usage Description</span>
+        <span class="hljs-comment">// 並寫上我們需要授權的理由</span>
+        <span class="hljs-comment">// get location info to show you good services</span>
+        locationManager?.requestWhenInUseAuthorization()
+        
+        <span class="hljs-comment">// 設定self是locationManager的delegate</span>
+        <span class="hljs-comment">// self需先服從CLLocationManagerDelegate</span>
+        locationManager?.delegate = <span class="hljs-keyword">self</span>
+        <span class="hljs-comment">// 設定精準度，有 ... 等</span>
+        <span class="hljs-comment">// kCLLocationAccuracyBest</span>
+        <span class="hljs-comment">// kCLLocationAccuracyKilometer</span>
+        <span class="hljs-comment">// kCLLocationAccuracyHundredMeters</span>
+        locationManager?.desiredAccuracy = kCLLocationAccuracyBest
+        
+        <span class="hljs-comment">// 追蹤模式</span>
+        <span class="hljs-comment">// apple會依據不同模式調整省電模式</span>
+        locationManager?.activityType = .automotiveNavigation
+        <span class="hljs-comment">// 開始更新location</span>
+        locationManager?.startUpdatingLocation()
+        
+        
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">let</span> coordinate = locationManager?.location?.coordinate{
+		
+            <span class="hljs-keyword">let</span> xScale:<span class="hljs-type">CLLocationDegrees</span> = <span class="hljs-number">0.01</span>
+            <span class="hljs-keyword">let</span> yScale:<span class="hljs-type">CLLocationDegrees</span> = <span class="hljs-number">0.01</span>
+            <span class="hljs-keyword">let</span> span:<span class="hljs-type">MKCoordinateSpan</span> = <span class="hljs-type">MKCoordinateSpan</span>(latitudeDelta: yScale, longitudeDelta: xScale)
+            <span class="hljs-keyword">let</span> region = <span class="hljs-type">MKCoordinateRegion</span>(center: coordinate, span: span)
+            <span class="hljs-built_in">map</span>.setRegion(region, animated: <span class="hljs-literal">true</span>)
+        }
+        <span class="hljs-built_in">map</span>.userTrackingMode = .followWithHeading
+    }
+    
+    <span class="hljs-comment">// 取得目前座標</span>
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">locationManager</span><span class="hljs-params">(<span class="hljs-number">_</span> manager: CLLocationManager, didUpdateLocations locations: [CLLocation])</span></span> {
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">"---------------"</span>)
+        <span class="hljs-built_in">print</span>(locations[<span class="hljs-number">0</span>].coordinate.latitude)
+        <span class="hljs-built_in">print</span>(locations[<span class="hljs-number">0</span>].coordinate.longitude)
+    }
+    <span class="hljs-comment">// 離開畫面時</span>
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">viewDidDisappear</span><span class="hljs-params">(<span class="hljs-number">_</span> animated: Bool)</span></span> {
+        <span class="hljs-comment">// 停止更新使用者座標</span>
+        locationManager?.stopUpdatingLocation()
+    }
+}
+</div></code></pre>
+<ul>
+<li>請求授權</li>
+</ul>
+<p><img src="2019-08-16-03.png" alt=""></p>
+<ul>
+<li>追蹤位置</li>
+</ul>
+<p><img src="2019-08-16-04.png" alt=""></p>
+</li>
 </ul>
 
 </body>
