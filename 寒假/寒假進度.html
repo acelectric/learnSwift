@@ -487,6 +487,193 @@ segmentedControl.setTitleTextAttributes([<span class="hljs-type">NSAttributedStr
 </ul>
 </li>
 </ol>
+<h2 id="20200124">2020/01/24</h2>
+<ul>
+<li>預期進度：設定是否視訊 開啟郵箱 簽名檔傳伺服器</li>
+<li>目前進度：</li>
+</ul>
+<ol>
+<li>
+<p>推播通知</p>
+<ol>
+<li>創建CSR文件
+在鑰匙串中，打開Keychain Access &gt; Certificate Assistant &gt; Request a Certificate From a Certificate Authority…</li>
+<li>傳至apple developer網站取得SSL證書</li>
+<li>xcode &gt; Signing &amp; Capabilities &gt; 加上push notifications 並勾選 Automatically manage signing</li>
+<li>在appDelegate修改加入<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">application</span><span class="hljs-params">(<span class="hljs-number">_</span> application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: <span class="hljs-keyword">Any</span>]?)</span></span> -&gt; <span class="hljs-type">Bool</span> {
+        <span class="hljs-comment">// Override point for customization after application launch.</span>
+        
+        <span class="hljs-comment">// push notification</span>
+        <span class="hljs-type">UNUserNotificationCenter</span>.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) <span class="hljs-keyword">in</span>
+        }
+        <span class="hljs-type">UIApplication</span>.shared.registerForRemoteNotifications()
+        
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+    }
+    <span class="hljs-comment">// when get the remote notification token</span>
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">application</span><span class="hljs-params">(<span class="hljs-number">_</span> application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data)</span></span> {
+        <span class="hljs-keyword">var</span> tokenString = <span class="hljs-string">""</span>
+        <span class="hljs-keyword">for</span> byte <span class="hljs-keyword">in</span> deviceToken {
+        <span class="hljs-keyword">let</span> hexString = <span class="hljs-type">String</span>(format: <span class="hljs-string">"%02x"</span>, byte)
+        tokenString += hexString
+        }
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">"token:\(tokenString)"</span>)
+    }
+</div></code></pre>
+</li>
+<li>取得token可傳至webservice供伺服器推播</li>
+<li>利用 Node.js 程式當 provider server 發送推播 進行測試<pre class="hljs"><code><div><span class="hljs-keyword">var</span> apn = <span class="hljs-built_in">require</span>(<span class="hljs-string">'apn'</span>);
+
+<span class="hljs-keyword">var</span> options = {
+    <span class="hljs-attr">token</span>: {
+        <span class="hljs-attr">key</span>: <span class="hljs-string">"AuthKey_XGDY92M6SG.p8"</span>,
+        <span class="hljs-attr">keyId</span>: <span class="hljs-string">"XGDY92M6SG"</span>,
+        <span class="hljs-attr">teamId</span>: <span class="hljs-string">"7K297JDWP3"</span>
+    },
+    <span class="hljs-attr">production</span>: <span class="hljs-literal">false</span>
+};
+
+<span class="hljs-keyword">var</span> apnProvider = <span class="hljs-keyword">new</span> apn.Provider(options);
+
+<span class="hljs-keyword">var</span> note = <span class="hljs-keyword">new</span> apn.Notification();
+<span class="hljs-keyword">let</span> deviceToken = <span class="hljs-string">"ee14270666e3bcc44639ca199ca0cdb72866b5a349991dfdbae6e7658447afe7"</span>;
+note.alert = <span class="hljs-string">"你的包裹已送達"</span>;
+note.sound = <span class="hljs-string">"default"</span>;
+note.badge = <span class="hljs-number">1</span>;
+note.topic = <span class="hljs-string">"edu.niu.Lebox"</span>;
+apnProvider.send(note, deviceToken).then(<span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> {
+    <span class="hljs-comment">// see documentation for an explanation of result</span>
+});
+</div></code></pre>
+</li>
+</ol>
+<ul>
+<li>
+<p>實際畫面</p>
+<p><img src="2020-01-24.png" alt=""></p>
+</li>
+<li>
+<p>參考資料</p>
+<p><a href="https://www.appcoda.com.tw/push-notification-ios/">https://www.appcoda.com.tw/push-notification-ios/</a>
+<a href="https://www.appcoda.com.tw/push-notification/">https://www.appcoda.com.tw/push-notification/</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p>來電自動彈出接聽畫面</p>
+<ul>
+<li>
+<p>實作方法：</p>
+<ol>
+<li>使用voip通知手機喚醒(PushKit)</li>
+<li>將PushKit收到的通知使用CallKit呼叫系統通話畫面</li>
+</ol>
+</li>
+<li>
+<p>詳細步驟</p>
+<ol>
+<li>
+<p>生成 CSR 文件</p>
+</li>
+<li>
+<p>生成 voip service 的證書</p>
+</li>
+<li>
+<p>勾選Background Mode &gt; voice over ip</p>
+</li>
+<li>
+<p>添加 PushKit.framework 和 CallKit.framework</p>
+</li>
+<li>
+<p>註冊 voip</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">registerForVoIPPushes</span><span class="hljs-params">()</span></span> {
+    <span class="hljs-keyword">let</span> mainQueue = <span class="hljs-type">DispatchQueue</span>.main
+    
+    voipRegistry = <span class="hljs-type">PKPushRegistry</span>(queue: mainQueue)
+    voipRegistry?.delegate = <span class="hljs-keyword">self</span>
+    voipRegistry?.desiredPushTypes = [.voIP]
+}
+</div></code></pre>
+</li>
+<li>
+<p>接收voip token</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">pushRegistry</span><span class="hljs-params">(<span class="hljs-number">_</span> registry: PKPushRegistry, didUpdate pushCredentials: PKPushCredentials, <span class="hljs-keyword">for</span> type: PKPushType)</span></span> {
+    <span class="hljs-keyword">var</span> tokenString = <span class="hljs-string">""</span>
+    <span class="hljs-keyword">for</span> byte <span class="hljs-keyword">in</span> pushCredentials.token {
+        <span class="hljs-keyword">let</span> hexString = <span class="hljs-type">String</span>(format: <span class="hljs-string">"%02x"</span>, byte)
+        tokenString += hexString
+    }
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">"voip token:\(tokenString)"</span>)
+}
+</div></code></pre>
+</li>
+<li>
+<p>串 CallKit</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">pushRegistry</span><span class="hljs-params">(<span class="hljs-number">_</span> registry: PKPushRegistry, didReceiveIncomingPushWith payload: PKPushPayload, <span class="hljs-keyword">for</span> type: PKPushType, completion: @escaping <span class="hljs-params">()</span></span></span> -&gt; <span class="hljs-type">Void</span>) {
+
+    <span class="hljs-keyword">let</span> backgroundTaskIdentifier = <span class="hljs-type">UIApplication</span>.shared.beginBackgroundTask(expirationHandler: <span class="hljs-literal">nil</span>)
+    
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">let</span> handle = payload.dictionaryPayload[<span class="hljs-string">"handle"</span>] <span class="hljs-keyword">as</span>? <span class="hljs-type">String</span>{
+        <span class="hljs-type">AppDelegate</span>.shared.displayIncomingCall(
+            uuid: <span class="hljs-type">UUID</span>(),
+            handle: handle,
+            hasVideo: <span class="hljs-literal">true</span>
+        ) { <span class="hljs-number">_</span> <span class="hljs-keyword">in</span>
+            <span class="hljs-type">UIApplication</span>.shared.endBackgroundTask(backgroundTaskIdentifier)
+        }
+    }
+    
+    
+    
+}
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">displayIncomingCall</span><span class="hljs-params">(uuid: UUID,handle: String,hasVideo: Bool = <span class="hljs-literal">false</span>,completion: <span class="hljs-params">(<span class="hljs-params">(Error?)</span></span></span></span> -&gt; <span class="hljs-type">Void</span>)?) {
+    
+    providerDelegate.reportIncomingCall(
+        uuid: uuid,
+        handle: handle,
+        hasVideo: hasVideo,
+        completion: completion)
+}
+</div></code></pre>
+<p>詳細參考<a href="https://juejin.im/entry/5cb877626fb9a0687a171ced">https://juejin.im/entry/5cb877626fb9a0687a171ced</a></p>
+</li>
+<li>
+<p>測試:使用pusher</p>
+<p><a href="https://github.com/noodlewerk/NWPusher/releases">https://github.com/noodlewerk/NWPusher/releases</a></p>
+<p>模擬伺服器發送請求</p>
+<p><img src="2020-01-22-01.png" alt=""></p>
+<p>手機接收到voip通知後的動作</p>
+<p><img src="2020-01-22-02.png" alt=""></p>
+</li>
+</ol>
+</li>
+<li>
+<p>參考資料</p>
+<p><a href="https://medium.com/ios-expert-series-or-interview-series/voip-push-notifications-using-ios-pushkit-5bc4a8f4d587">https://medium.com/ios-expert-series-or-interview-series/voip-push-notifications-using-ios-pushkit-5bc4a8f4d587</a></p>
+<p><a href="https://stackoverflow.com/questions/43638814/ios-voip-push-notifications-pushkit">https://stackoverflow.com/questions/43638814/ios-voip-push-notifications-pushkit</a></p>
+<p><a href="https://juejin.im/entry/5cb877626fb9a0687a171ced">https://juejin.im/entry/5cb877626fb9a0687a171ced</a></p>
+<p><a href="https://stackoverflow.com/questions/58115125/ios-13-not-getting-voip-push-notifications-in-background">https://stackoverflow.com/questions/58115125/ios-13-not-getting-voip-push-notifications-in-background</a></p>
+<p><a href="https://developer.apple.com/documentation/pushkit/responding_to_voip_notifications_from_pushkit">https://developer.apple.com/documentation/pushkit/responding_to_voip_notifications_from_pushkit</a></p>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><code>UISwitch</code>顏色調整<pre class="hljs"><code><div>switchButton.onTintColor = <span class="hljs-type">UIColor</span>.blue
+switchButton.tintColor = <span class="hljs-type">UIColor</span>.red
+switchButton.thumbTintColor = <span class="hljs-type">UIColor</span>.white
+switchButton.backgroundColor = <span class="hljs-type">UIColor</span>.red
+switchButton.layer.cornerRadius = <span class="hljs-number">16</span>
+</div></code></pre>
+<ul>
+<li>
+<p>參考資料：</p>
+<p><a href="https://iosrevisited.blogspot.com/2019/06/swift-uiswitch-color-in-on-off-change-height.html">https://iosrevisited.blogspot.com/2019/06/swift-uiswitch-color-in-on-off-change-height.html</a></p>
+</li>
+</ul>
+</li>
+</ul>
 
 </body>
 </html>
